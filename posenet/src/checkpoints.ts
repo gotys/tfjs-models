@@ -7,11 +7,7 @@
  *
  * https://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * modified by Gotys
  * =============================================================================
  */
 
@@ -24,12 +20,15 @@ const RESNET50_BASE_URL =
 // format.
 export function resNet50Checkpoint(stride: number, quantBytes: number): string {
   const graphJson = `model-stride${stride}.json`;
+  let retUrl = '';
   // quantBytes=4 corresponding to the non-quantized full-precision checkpoints.
   if (quantBytes === 4) {
-    return RESNET50_BASE_URL + `float/` + graphJson;
+    retUrl = RESNET50_BASE_URL + `float/` + graphJson;
   } else {
-    return RESNET50_BASE_URL + `quant${quantBytes}/` + graphJson;
+    retUrl = RESNET50_BASE_URL + `quant${quantBytes}/` + graphJson;
   }
+  console.log("REturning "+retUrl);
+  return retUrl;
 }
 
 // The PoseNet 2.0 MobileNetV1 models use the latest TensorFlow.js 1.0 model
